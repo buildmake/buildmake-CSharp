@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="workspace">
+  	<xsd:complexType>
+			<xsd:sequence>
+        <xsd:element name="name" minOccurs="0" maxOccurs="1" default="workspace" />
+				<xsd:element name="project" type="Project" minOccurs="0" maxOccurs="1"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+<xsd:complexType name="Project" abstract="true">
+		<xsd:sequence>
+			<xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1" default="project"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+<xsd:complexType name="options">
+  <xsd:sequence>
+    <xsd:element name="optimization" type="xsd:string" minOccurs="0" maxOccurs="1" />
+    <xsd:element name="debug" type="xsd:string" minOccurs="0" maxOccurs="1" />
+  </xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="configuration">
+  <xsd:sequence>
+    <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" />
+    <xsd:element name="platform" type="xsd:string" minOccurs="1" maxOccurs="1" />
+    <xsd:element name="options" type="options" minOccurs="1" maxOccurs="1" />
+  </xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="CSharp">
+		<xsd:complexContent>
+			<xsd:extension base="Project">
+				<xsd:sequence>
+					<xsd:element name="dotnet_framework" minOccurs="1" maxOccurs="1" > 
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="v4.0"/>
+                <xsd:enumeration value="v3.5"/>
+                <xsd:enumeration value="v4.0"/>
+                <xsd:enumeration value="v4.5"/>
+                <xsd:enumeration value="v4.6"/>
+                <xsd:enumeration value="v4.7"/>
+                <xsd:enumeration value="v4.8"/>
+                <xsd:enumeration value="v6.0"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+         <xsd:element name="configuration" type="configuration" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+  <xsd:complexType name="Cplusplus">
+		<xsd:complexContent>
+			<xsd:extension base="Project">
+				<xsd:sequence>
+					<xsd:element name="specification" maxOccurs="1" minOccurs="1">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="C++98"/>
+                <xsd:enumeration value="C++03"/>
+                <xsd:enumeration value="C++11"/>
+                <xsd:enumeration value="C++14"/>
+                <xsd:enumeration value="C++17"/>
+                <xsd:enumeration value="C++20"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="configuration" type="configuration" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+  <xsd:complexType name="C">
+		<xsd:complexContent>
+			<xsd:extension base="Project">
+				<xsd:sequence>
+					<xsd:element name="specification"  minOccurs="1" maxOccurs="1">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="C99"/>
+                <xsd:enumeration value="C11"/>
+                <xsd:enumeration value="C17"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:element>
+          <xsd:element name="configuration" type="configuration" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+</xsd:schema>

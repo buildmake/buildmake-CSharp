@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspace>
+    <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CSharp">
+        <dotnet_framework>v4.8</dotnet_framework>
+        <configuration>
+            <name>Debug</name>
+            <platform>x86</platform>
+            <options>
+                <optimization>false</optimization>
+                <debug>true</debug>
+            </options>
+        </configuration>
+        <configuration>
+            <name>Release</name>
+            <platform>x86</platform>
+            <options>
+                <optimization>true</optimization>
+                <debug>false</debug>
+            </options>
+        </configuration>
+    </project>
+</workspace>
