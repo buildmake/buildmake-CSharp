@@ -8,3 +8,6 @@
 # Local History for Visual Studio Code
 .history/
 
+buildmake/bin/*
+buildmake/obj/*
+.vs/*
