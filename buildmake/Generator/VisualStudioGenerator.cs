@@ -84,9 +84,22 @@ namespace buildmake.Generator
         private List<String> generateHeader()
         {
             List<String> header = new List<String>();
-            header.Add("Microsoft Visual Studio Solution File, Format Version 12.00");
-            header.Add("# Visual Studio Version 17");
-            return header;
+
+            switch (this.GetYearVersion())
+            {
+                case "2202":
+                case "2019":
+                    header.Add("Microsoft Visual Studio Solution File, Format Version 12.00");
+                    break;
+                default:
+                    throw new Exception("Version is not supported");
+
+                   
+            }
+          
+           header.Add("# Visual Studio Version " + this.GetIntVersion());
+           header.Add("MinimumVisualStudioVersion = " + this.GetIntVersion());
+           return header;
         }
 
         private List<String> generateWorkspaceProject(XDocument xDocument)
@@ -191,7 +204,7 @@ namespace buildmake.Generator
             }
 
             lines.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            lines.Add("<Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
+            lines.Add("<Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\" ToolsVersion=\"Current\">");
 
             lines.Add("\t<PropertyGroup>");
             lines.Add("\t\t<AssemblyName>"+ projectName + "</AssemblyName>");
