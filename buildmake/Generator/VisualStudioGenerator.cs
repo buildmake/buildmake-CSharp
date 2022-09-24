@@ -236,9 +236,15 @@ namespace buildmake.Generator
 
             lines.Add("</Project>");
 
+            if (!Directory.Exists(buildPath + "/" + projectName))
+            {
+                Directory.CreateDirectory(buildPath + "/" + projectName);
+            }
+
             switch (iEnumerable.Cast<XAttribute>().First().Value)
             {
                 case "CSharp":
+
                     File.WriteAllLines(buildPath + "/" + projectName + "/" + projectName + ".csproj", lines.ToArray());
                     break;
                 default:
