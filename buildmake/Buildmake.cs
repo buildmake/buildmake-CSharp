@@ -1,12 +1,5 @@
 ﻿using buildmake.Command;
 using buildmake.Generator;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Numerics;
-using System.Reflection.PortableExecutable;
-using System.Transactions;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -107,11 +100,24 @@ namespace buildmake
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
 
+
+
             visualStudioGenerator = new VisualStudioGenerator();
             visualStudioGenerator.SetLongName("Visual Studio 16 2019");
             visualStudioGenerator.SetShortName("vs2019");
             visualStudioGenerator.SetIntVersion(16);
             visualStudioGenerator.SetYearVersion("2019");
+
+            generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
+            generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
+
+
+
+            visualStudioGenerator = new VisualStudioGenerator();
+            visualStudioGenerator.SetLongName("Visual Studio 15 2017");
+            visualStudioGenerator.SetShortName("vs2017");
+            visualStudioGenerator.SetIntVersion(15);
+            visualStudioGenerator.SetYearVersion("2017");
 
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
@@ -132,7 +138,7 @@ namespace buildmake
             Console.WriteLine("");
             Console.WriteLine("Visual Studio 17 2022 | vs2022");
             Console.WriteLine("Visual Studio 16 2019 | vs2019");
-            // Console.WriteLine("Visual Studio 2017 | vs2017");
+            Console.WriteLine("Visual Studio 15 2017 | vs2017");
             Console.WriteLine("");
             Console.WriteLine("");
         }
