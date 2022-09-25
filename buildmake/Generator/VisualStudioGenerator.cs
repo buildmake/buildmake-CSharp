@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http.Headers;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -89,6 +88,7 @@ namespace buildmake.Generator
             {
                 case "2202":
                 case "2019":
+                case "2017":
                     header.Add("Microsoft Visual Studio Solution File, Format Version 12.00");
                     break;
                 default:
