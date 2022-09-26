@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspace>
-    <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CSharp">
-        <dotnet_framework>v4.8</dotnet_framework>
+    <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Cplusplus">
+       
         <configuration>
             <name>Debug</name>
-            <platform>x86</platform>
+            <platform>Win32</platform>
             <options>
                 <optimization>false</optimization>
                 <debug>true</debug>
@@ -12,7 +12,7 @@
         </configuration>
         <configuration>
             <name>Release</name>
-            <platform>x86</platform>
+            <platform>Win32</platform>
             <options>
                 <optimization>true</optimization>
                 <debug>false</debug>
