@@ -275,19 +275,19 @@ namespace buildmake.Generator
                 projectName = projectNameXElement.Value;
             }
 
- 
-            lines.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            lines.Add("<Project DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
 
-            lines.Add("\t<ItemGroup>");
+            lines.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            lines.Add("<Project DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\" ToolsVersion=\"Current\">");
+
+            lines.Add("\t<ItemGroup  Label=\"ProjectConfigurations\">");
 
 
             int counter = 1;
             foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
             {
-                lines.Add("\t\t<ProjectConfiguration Include=\""+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "\">");
-                lines.Add("\t\t\t<Configuration>"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "</Configuration>");
-                lines.Add("\t\t\t<Platform>"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "</Platform>");
+                lines.Add("\t\t<ProjectConfiguration Include=\"" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "\">");
+                lines.Add("\t\t\t<Configuration>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "</Configuration>");
+                lines.Add("\t\t\t<Platform>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "</Platform>");
                 lines.Add("\t\t</ProjectConfiguration>");
                 counter++;
             }
@@ -299,24 +299,7 @@ namespace buildmake.Generator
             counter = 1;
             foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
             {
-
-                lines.Add("\t<PropertyGroup Label=\"Configuration\" Condition=\"'$(Configuration)|$(Platform)'=='" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\" >");
-
-                lines.Add("\t\t<OutDir>build\\$(Configuration)\\</OutDir>");
-                lines.Add("\t\t<TargetName>" + projectName + "</TargetName>");                    
-                lines.Add("\t</PropertyGroup>");
-
-               counter++;
-            }
-
-
-            lines.Add("\t<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.props\" />");
-
-            counter = 1;
-            foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
-            {
-                lines.Add("\t<PropertyGroup Label=\"Configuration\" Condition=\"'$(Configuration)|$(Platform)'=='"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
-               
+                lines.Add("\t<PropertyGroup Label=\"Configuration\" Condition=\"'$(Configuration)|$(Platform)'=='" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
 
                 switch (this.GetYearVersion())
                 {
@@ -339,7 +322,26 @@ namespace buildmake.Generator
                 counter++;
             }
 
-          
+            lines.Add("\t<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.props\" />");
+
+            counter = 1;
+            foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
+            {
+                lines.Add("\t<ItemDefinitionGroup Condition=\"'$(Configuration)|$(Platform)'=='"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
+
+             //   lines.Add("\t\t<Link>");
+               // lines.Add("\t\t\t<GenerateDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/optimization") + "</GenerateDebugInformation>"); 
+              //  lines.Add("\t\t</Link>");
+                lines.Add("\t</ItemDefinitionGroup>");
+
+                counter++;
+            }
+
+
+            lines.Add("\t<ItemGroup>");
+            lines.Add("\t\t<ClCompile Include=\"*.cpp\" />");
+            lines.Add("\t</ItemGroup>");
+
 
             lines.Add("\t<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.Targets\" />");
             lines.Add("</Project>");
