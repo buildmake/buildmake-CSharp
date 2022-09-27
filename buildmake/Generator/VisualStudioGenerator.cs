@@ -234,8 +234,6 @@ namespace buildmake.Generator
             lines.Add("\t\t<TargetFrameworkVersion>" + xDocument.XPathSelectElement("workspace /project/dotnet_framework").Value + "</TargetFrameworkVersion>");
             lines.Add("\t</PropertyGroup>");
 
-
-
             int counter = 1;
             foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
             {
@@ -243,6 +241,8 @@ namespace buildmake.Generator
                 lines.Add("\t<PropertyGroup Condition=\"'$(Configuration)|$(Platform)' == '" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "' \">");
                 lines.Add("\t\t<OutputPath>build\\$(Configuration)\\$(Platform)\\</OutputPath>");
                 lines.Add("\t\t<EmitDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/debug").Value + "</EmitDebugInformation>"); ;
+                lines.Add("\t\t<Optimize>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/optimization").Value + "</Optimize>");
+
                 lines.Add("\t</PropertyGroup>");
 
                 counter++;
@@ -301,6 +301,10 @@ namespace buildmake.Generator
             {
                 lines.Add("\t<PropertyGroup Label=\"Configuration\" Condition=\"'$(Configuration)|$(Platform)'=='" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
 
+
+                lines.Add("\t\t<WholeProgramOptimization>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/optimization").Value + "</WholeProgramOptimization>");
+               
+                
                 switch (this.GetYearVersion())
                 {
                     case "2022":
@@ -329,12 +333,17 @@ namespace buildmake.Generator
             {
                 lines.Add("\t<ItemDefinitionGroup Condition=\"'$(Configuration)|$(Platform)'=='"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
 
-             //   lines.Add("\t\t<Link>");
-               // lines.Add("\t\t\t<GenerateDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/optimization") + "</GenerateDebugInformation>"); 
-              //  lines.Add("\t\t</Link>");
+                 lines.Add("\t\t<Link>");
+                 lines.Add("\t\t\t<GenerateDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/debug").Value + "</GenerateDebugInformation>"); 
+            
+
+                 lines.Add("\t\t</Link>");
                 lines.Add("\t</ItemDefinitionGroup>");
 
                 counter++;
+
+
+                
             }
 
 
