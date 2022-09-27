@@ -333,11 +333,38 @@ namespace buildmake.Generator
             {
                 lines.Add("\t<ItemDefinitionGroup Condition=\"'$(Configuration)|$(Platform)'=='"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
 
-                 lines.Add("\t\t<Link>");
-                 lines.Add("\t\t\t<GenerateDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/debug").Value + "</GenerateDebugInformation>"); 
-            
+                lines.Add("\t\t<ClCompile>");
 
-                 lines.Add("\t\t</Link>");
+                XElement xElementSpecification = xDocument.XPathSelectElement("workspace/project/specification");
+                if(xElementSpecification != null)
+                {
+                    switch(xElementSpecification.Value)
+                    {
+                        case "C++20":
+                            lines.Add("\t\t\t<LanguageStandard>stdcpp20</LanguageStandard>");
+                            break;
+                        case "C++17":
+                            lines.Add("\t\t\t<LanguageStandard>stdcpp17</LanguageStandard>");
+                            break;
+                        case "C++14":
+                            lines.Add("\t\t\t<LanguageStandard>stdcp14</LanguageStandard>");
+                            break;
+                        default:
+                            lines.Add("\t\t\t<LanguageStandard>stdcpp14</LanguageStandard>");
+                            break;
+                    }
+                } else
+                {
+                    lines.Add("\t\t\t<LanguageStandard>stdcpp14</LanguageStandard>");
+                }
+                 
+                
+                lines.Add("\t\t</ClCompile>");
+
+
+                lines.Add("\t\t<Link>");
+                lines.Add("\t\t\t<GenerateDebugInformation>" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/options/debug").Value + "</GenerateDebugInformation>"); 
+                lines.Add("\t\t</Link>");
                 lines.Add("\t</ItemDefinitionGroup>");
 
                 counter++;
