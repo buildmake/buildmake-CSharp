@@ -94,7 +94,7 @@ namespace buildmake
             visualStudioGenerator.SetLongName("Visual Studio 17 2022");
             visualStudioGenerator.SetShortName("vs2022");
             visualStudioGenerator.SetIntVersion(17);
-            visualStudioGenerator.SetYearVersion("2017");
+            visualStudioGenerator.SetYearVersion("2022");
 
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);

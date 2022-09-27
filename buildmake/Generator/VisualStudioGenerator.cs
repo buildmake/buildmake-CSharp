@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection.Emit;
+using System.Reflection.PortableExecutable;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -106,7 +107,7 @@ namespace buildmake.Generator
 
             switch (this.GetYearVersion())
             {
-                case "2202":
+                case "2022":
                 case "2019":
                 case "2017":
                     header.Add("Microsoft Visual Studio Solution File, Format Version 12.00");
@@ -274,43 +275,7 @@ namespace buildmake.Generator
                 projectName = projectNameXElement.Value;
             }
 
-            /*
-             * 
-             * <?xml version="1.0" encoding="utf-8"?>
-                <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-                  <ItemGroup>
-                    <ProjectConfiguration Include="Debug|Win32">
-                      <Configuration>Debug</Configuration>
-                      <Platform>Win32</Platform>
-                    </ProjectConfiguration>
-                    <ProjectConfiguration Include="Release|Win32">
-                      <Configuration>Release</Configuration>
-                      <Platform>Win32</Platform>
-                    </ProjectConfiguration>
-                  </ItemGroup>
-                  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.default.props" />
-                  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-                    <PlatformToolset>v143</PlatformToolset>
-                  </PropertyGroup>
-                  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-                    <OutDir>build\Debug\</OutDir>
-                    <TargetName>test</TargetName>
-                  </PropertyGroup>
-                  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-                  </ItemDefinitionGroup>
-                  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-                  <ItemGroup>
-                    <ClCompile Include="*.cpp" />
-                  </ItemGroup>
-                  <ItemGroup>
-                    <ClInclude Include="*.h" />
-                  </ItemGroup>
-                  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Targets" />
-                </Project>
-
-            */
-
-
+ 
             lines.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             lines.Add("<Project DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
 
@@ -346,6 +311,35 @@ namespace buildmake.Generator
 
 
             lines.Add("\t<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.props\" />");
+
+            counter = 1;
+            foreach (XElement xElement in xDocument.XPathSelectElements("workspace/project/configuration"))
+            {
+                lines.Add("\t<PropertyGroup Label=\"Configuration\" Condition=\"'$(Configuration)|$(Platform)'=='"+ xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/name").Value + "|" + xDocument.XPathSelectElement("workspace/project/configuration[" + counter + "]/platform").Value + "'\">");
+               
+
+                switch (this.GetYearVersion())
+                {
+                    case "2022":
+                        lines.Add("\t\t<PlatformToolset>v143</PlatformToolset>");
+                        break;
+                    case "2019":
+                        lines.Add("\t\t<PlatformToolset>v142</PlatformToolset>");
+                        break;
+                    case "2017":
+                        lines.Add("\t\t<PlatformToolset>v141</PlatformToolset>");
+                        break;
+                    default:
+                        throw new Exception("Version is not supported");
+                }
+
+
+                lines.Add("\t</PropertyGroup>");
+
+                counter++;
+            }
+
+          
 
             lines.Add("\t<Import Project=\"$(VCTargetsPath)\\Microsoft.Cpp.Targets\" />");
             lines.Add("</Project>");
