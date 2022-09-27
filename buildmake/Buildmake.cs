@@ -9,9 +9,9 @@ namespace buildmake
 {
     class Buildmake
     {
-        private String sourceDir = null;
-        private String buildDir = null;
-        private String generator = null;
+        private String sourceDir;
+        private String buildDir;
+        private String generator;
 
         private static Boolean xmlError = false;
 
@@ -66,10 +66,9 @@ namespace buildmake
                 if(!Directory.Exists(Directory.GetCurrentDirectory() + "/" + this.buildDir))
                 {
                     Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/" + this.buildDir);
-
                 }
 
-                Generator.Generator outGenerator;
+                Generator.Generator outGenerator = new Generator.Generator();
                 this.generators.TryGetValue(this.generator, out outGenerator);
 
                 if (outGenerator != null)
@@ -95,7 +94,7 @@ namespace buildmake
             visualStudioGenerator.SetLongName("Visual Studio 17 2022");
             visualStudioGenerator.SetShortName("vs2022");
             visualStudioGenerator.SetIntVersion(17);
-            visualStudioGenerator.SetYearVersion("2017");
+            visualStudioGenerator.SetYearVersion("2022");
 
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
@@ -135,6 +134,8 @@ namespace buildmake
             Console.WriteLine("--build|-B          The build directory");
             Console.WriteLine("");
             Console.WriteLine("generators");
+            Console.WriteLine("");
+            Console.WriteLine("Visual Studio");
             Console.WriteLine("");
             Console.WriteLine("Visual Studio 17 2022 | vs2022");
             Console.WriteLine("Visual Studio 16 2019 | vs2019");
