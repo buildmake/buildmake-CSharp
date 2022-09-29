@@ -229,6 +229,8 @@ namespace buildmake.Generator
 
             lines.Add("\t<PropertyGroup>");
             lines.Add("\t\t<AssemblyName>" + projectName + "</AssemblyName>");
+            lines.Add("\t\t<RootNamespace>" + projectName + "</RootNamespace>");
+
 
             lines.Add("\t\t<TargetFrameworkVersion>" + xDocument.XPathSelectElement("workspace /project/dotnet_framework").Value + "</TargetFrameworkVersion>");
             lines.Add("\t</PropertyGroup>");
