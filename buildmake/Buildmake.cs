@@ -120,6 +120,16 @@ namespace buildmake
 
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
+
+
+            visualStudioGenerator = new VisualStudioGenerator();
+            visualStudioGenerator.SetLongName("Visual Studio 14 2015");
+            visualStudioGenerator.SetShortName("vs2015");
+            visualStudioGenerator.SetIntVersion(14);
+            visualStudioGenerator.SetYearVersion("2015");
+
+            generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
+            generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
         }
 
         private void ShowHelp()
@@ -140,6 +150,7 @@ namespace buildmake
             Console.WriteLine("Visual Studio 17 2022 | vs2022");
             Console.WriteLine("Visual Studio 16 2019 | vs2019");
             Console.WriteLine("Visual Studio 15 2017 | vs2017");
+            Console.WriteLine("Visual Studio 15 2015 | vs2015");
             Console.WriteLine("");
             Console.WriteLine("");
         }

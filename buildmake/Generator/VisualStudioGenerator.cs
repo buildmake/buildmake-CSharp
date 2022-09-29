@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection.Emit;
-using System.Reflection.PortableExecutable;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -110,6 +108,7 @@ namespace buildmake.Generator
                 case "2022":
                 case "2019":
                 case "2017":
+                case "2015":
                     header.Add("Microsoft Visual Studio Solution File, Format Version 12.00");
                     break;
                 default:
@@ -315,6 +314,9 @@ namespace buildmake.Generator
                         break;
                     case "2017":
                         lines.Add("\t\t<PlatformToolset>v141</PlatformToolset>");
+                        break;
+                    case "2015":
+                        lines.Add("\t\t<PlatformToolset>v140</PlatformToolset>");
                         break;
                     default:
                         throw new Exception("Version is not supported");
