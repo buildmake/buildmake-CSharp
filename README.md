@@ -5,4 +5,5 @@ Buildmake is a configuration program written in C# which is configurable with XM
 - Visual Studio 2022
 - Visual Studio 2019
 - Visual Studio 2017
+- Visual Studio 2015
 
