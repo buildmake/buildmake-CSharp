@@ -77,6 +77,11 @@ namespace buildmake
                     {
                         ((VisualStudioGenerator)outGenerator).generate(xDocument, Directory.GetCurrentDirectory() + "/" + this.buildDir);
                     }
+
+                    if(outGenerator is MSBuildGenerator)
+                    {
+                        ((MSBuildGenerator)outGenerator).generate(xDocument, Directory.GetCurrentDirectory() + "/" + this.buildDir);
+                    }
                 }
             }
 
@@ -130,6 +135,16 @@ namespace buildmake
 
             generators.Add(visualStudioGenerator.GetLongName(), visualStudioGenerator);
             generators.Add(visualStudioGenerator.GetShortName(), visualStudioGenerator);
+
+
+
+            MSBuildGenerator msBuildGenerator = new MSBuildGenerator();
+            msBuildGenerator.SetLongName("MSBuild 17");
+            msBuildGenerator.SetIntVersion(17);
+            msBuildGenerator.SetShortName("msb17");
+
+            generators.Add(msBuildGenerator.GetLongName(), msBuildGenerator);
+            generators.Add(msBuildGenerator.GetShortName(), msBuildGenerator);
         }
 
         private void ShowHelp()
@@ -151,7 +166,14 @@ namespace buildmake
             Console.WriteLine("Visual Studio 16 2019 | vs2019");
             Console.WriteLine("Visual Studio 15 2017 | vs2017");
             Console.WriteLine("Visual Studio 14 2015 | vs2015");
+
             Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("MSBuild");
+            Console.WriteLine("");
+
+            Console.WriteLine("MSBuild 17 | msb17");
             Console.WriteLine("");
         }
     }
